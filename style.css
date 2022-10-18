@@ -1,0 +1,16 @@
+body {
+    display: flex;
+    flex-direction: row;
+}
+
+.conditions {
+    display: flex;
+    flex-direction: column;
+}
+.req {
+    color: red;
+}
+.required {
+    border-color: red;
+    background: yellow;
+}
