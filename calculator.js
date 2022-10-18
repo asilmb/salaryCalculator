@@ -94,3 +94,19 @@ function isWeekday(year, month, day) {
     day = new Date(year, month, day).getDay();
     return day !== 0 && day !== 6;
 }
+
+let myChart
+
+$(function(){
+    const ctx = $('#myChart');
+    myChart = new Chart(ctx, {
+        type: 'bar',
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+});
