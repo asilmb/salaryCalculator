@@ -2,6 +2,7 @@ const $goal = $('#goal');
 const $moneyPerHour = $('#moneyPerHour');
 const $alreadyWorked = $('#alreadyWorked');
 const $chartData = {'labels': [], 'data': []};
+let myChart;
 
 $goal.on('keyup', function () {
     $goal.removeClass('required')
@@ -94,8 +95,6 @@ function isWeekday(year, month, day) {
     day = new Date(year, month, day).getDay();
     return day !== 0 && day !== 6;
 }
-
-let myChart
 
 $(function(){
     const ctx = $('#myChart');
