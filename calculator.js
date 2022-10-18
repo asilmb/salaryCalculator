@@ -1,9 +1,7 @@
-var labels = [];
-var data = [];
-
 const $goal = $('#goal');
 const $moneyPerHour = $('#moneyPerHour');
 const $alreadyWorked = $('#alreadyWorked');
+const $chartData = {'labels': [], 'data': []};
 
 $goal.on('keyup', function () {
     $goal.removeClass('required')
@@ -28,7 +26,7 @@ function getHoursPerDay(length) {
 }
 
 function validate() {
-    var isValid = true;
+    let isValid = true;
     if ($moneyPerHour.val() === '') {
         $moneyPerHour.addClass('required')
         isValid = false;
@@ -48,23 +46,23 @@ function calculate() {
     if (validate() === false) {
         return false;
     }
-    globalThis.data = [];
-    globalThis.labels = [];
-    var today = new Date();
-    var weekdays = getWeekdaysInMonth(today.getDate(), today.getMonth(), today.getFullYear());
-    var hours = getHoursPerDay(weekdays.length)
+    $chartData.data = [];
+    $chartData.labels = [];
+    const today = new Date();
+    const weekdays = getWeekdaysInMonth(today.getDate(), today.getMonth(), today.getFullYear());
+    const hours = getHoursPerDay(weekdays.length);
     for (const element of weekdays) {
-        globalThis.labels.push(element.day + '/' + today.getMonth());
-        globalThis.data.push(hours);
+        $chartData.labels.push(element.day + '/' + today.getMonth());
+        $chartData.data.push(hours);
     }
 
 }
 
 function updateChart() {
-    myChart.data.labels = labels
+    myChart.data.labels = $chartData.labels
     myChart.data.datasets = [{
         label: 'Hours per day',
-        data: data,
+        data: $chartData.data,
         backgroundColor: [
             'rgba(54, 162, 235, 0.2)',
         ],
@@ -78,9 +76,9 @@ function updateChart() {
 
 
 function getWeekdaysInMonth(day, month, year) {
-    var days = daysInMonth(month, year);
-    var weekdays = [];
-    for (var i = day; i < days; i++) {
+    const days = daysInMonth(month, year);
+    let weekdays = [];
+    for (let i = day; i < days; i++) {
         if (isWeekday(year, month, i + 1)) {
             weekdays.push({'day': i})
         }
